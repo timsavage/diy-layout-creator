@@ -93,7 +93,7 @@
 					<arg value="-nosign"/>
 					<arg value="-v"/>
 		</exec>-->
-		<taskdef name="jarbundler" classname="com.ultramixer.jarbundler.JarBundler" />
+		<!--<taskdef name="jarbundler" classname="com.ultramixer.jarbundler.JarBundler" />
 		<jarbundler bundleid="org.diylc" dir="${jar.dir}" name="DIYLC" version="${diylc.version}" mainclass="${main.class}" stubfile="JavaApplicationStub" vmoptions="splash:splash.png -Xms512m -Xmx2048m -Dorg.diylc.scriptRun=true" icon="icons/diylc.icns" workingdirectory="$APP_PACKAGE/Contents/Resources" copyright="bancika (diy-fever.com)" splashfile="$APP_PACKAGE/Contents/Resources/splash.png" jvmversion="1.8+">
 			<jarfileset dir="${jar.dir}">
 				<include name="diylc.jar" />
@@ -107,10 +107,27 @@
 				<include name="themes**/*.xml" />
 			</resourcefileset>
 			<javaproperty name="apple.laf.useScreenMenuBar" value="true" />
-			<!--<documenttype name="DIYLC Project"
+			//<documenttype name="DIYLC Project"
 			                    extensions="diylc" 
-			                    role="Editor"/>-->
-		</jarbundler>
+			                    role="Editor"/>
+		</jarbundler>-->
+		
+		<taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" />
+		
+	    <bundleapp 
+	        outputdirectory="${build.dir}" 
+	        name="DIYLC" 
+	        displayname="DIY Layout Creator" 
+	        identifier="org.diylc" 
+	        shortversion="${diylc.version}"
+	        applicationCategory="public.app-category.graphics-design"
+	        mainclassname="${main.class}">
+	        <runtime dir="${env.JAVA_HOME}" />
+	        <classpath file="${jar.dir}\diylc.jar" />
+	    	<classpath file="${jar.dir}\lib\*.jar" />
+	    	<classpath file="${jar.dir}\library\*.jar" />
+	    	
+	    </bundleapp>
 	</target>
 	
 	<target name="win" depends="jar">
